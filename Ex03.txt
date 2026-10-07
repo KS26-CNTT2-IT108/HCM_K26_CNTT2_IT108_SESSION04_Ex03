@@ -1,0 +1,36 @@
+SESSION04
+Bài 3 : Kiến trúc sư hạ tầng Cloud Server
+
+Tên lớp: HCM K26 CNTT2
+Môn học: Nhập môn công nghệ thông tin
+Họ và tên: LƯƠNG THANH THƯ
+
+Phần 1: Mã nguồn.
+
+powershell
+1.Tạo cây thư mục.
+mkdir .\Farm-Manager\code\app, .\Farm-Manager\database\db, .\Farm-Manager\logs\guides
+2.Tạo 3 file rỗng trong app.
+New-Item .\Farm-Manager\code\app\main.py, .\Farm-Manager\code\app\models.py, .\Farm-Manager\code\app\utils.py
+3.Sao chép đệ quy logs sang logs-backup.
+Copy-Item .\Farm-Manager\logs -Destination .\Farm-Manager\logs-backup -Recurse -Force
+
+Ý nghĩa tham số:
+mkdir: tạo thư mục và tự tạo luôn các thư mục cha. Dấu phẩy cho phép tạo nhiều đường dẫn trong 1 lệnh.
+New-Item: tạo file rỗng, các file cách nhau bằng dấu phẩy.
+Copy-Item: sao chép thư mục logs sang logs-backup, ngang hàng với logs.
+-Recurse: sao chép cả thư mục con và file bên trong. Thiếu tham số này thì chỉ sao chép vỏ logs và bỏ sót guides.
+-Force: ghi đè file đã tồn tại hoặc file chỉ-đọc, tránh bị chặn khi sao chép.
+ 
+Phần 2: Kiểm thử.
+
+powershell
+ls .\Farm-Manager
+
+Kết quả: code, database, logs, logs-backup.
+
+Vì sao nên dùng đường dẫn tương đối (.\) thay vì tuyệt đối (C:\...):
+
+Chạy được ở mọi máy, mọi ổ đĩa, chỉ cần đứng đúng thư mục cha của Farm-Manager.
+Đường dẫn tuyệt đối bị gắn cứng vào ổ đĩa (ví dụ C:\), sang máy khác không có ổ đó sẽ báo lỗi Cannot find path.
+Bài này làm việc từ xa nên cần lệnh chạy được ở bất kỳ nơi nào.
